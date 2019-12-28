@@ -104,7 +104,7 @@ void SCD30::setForcedRecalibrationValue(uint16_t concentration)
 //see 1.4.3 in document
 void SCD30::setMeasurementInterval(uint16_t interval)
 {
-    sendCommand(SCD30_SET_MEASURING_INTERVAL, interval);
+    sendCommand(SCD30_SET_MEASUREMENT_INTERVAL, interval);
 }
 
 //sets temperature offset
@@ -134,6 +134,48 @@ void SCD30::setAmbientPressure(uint16_t ambientPressure)
 void SCD30::setAltitudeCompensation(uint16_t altitude)
 {
     sendCommand(SCD30_SET_ALTITUDE_COMPENSATION, altitude);
+}
+
+//gets set measurement interval 
+//see 1.4.3 in document
+uint16_t SCD30::getMeasurementInterval()
+{
+    uint16_t interval = readRegister(SCD30_SET_MEASUREMENT_INTERVAL);
+    return interval;
+}
+
+//gets state of automatic self calibration
+//see 1.4.5 in document
+boolean SCD30::getAutomaticSelfCalibration()
+{
+    uint16_t ACS = readRegister(SCD30_SET_AUTOMATIC_SELFCALIBRATION);
+    if (ACS == 1) return true;
+    else return false;
+}
+
+
+//gets state of forced recalibration value
+//see 1.4.5 in document
+uint16_t SCD30::getForcedRecalibrationValue()
+{
+    uint16_t FRC = readRegister(SCD30_SET_FORCED_RECALIBRATION);
+    return FRC;
+}
+
+//gets set temperature offset
+//see 1.4.6 in document
+uint16_t SCD30::getTemperatureOffset()
+{
+    uint16_t temperature = readRegister(SCD30_SET_TEMPERATURE_OFFSET);
+    return temperature;
+}
+
+//gets set altitude compensation
+//see 1.4.7 in document
+uint16_t SCD30::getAltituteCompensation()
+{
+    uint16_t interval = readRegister(SCD30_SET_ALTITUDE_COMPENSATION);
+    return interval;
 }
 
 //reads 18 bytes from sensor
@@ -360,4 +402,12 @@ uint8_t* SCD30::getFirmwareVersion()
         firmwareVersion = version;
     }
     return firmwareVersion;
+}
+
+
+//soft resets the sensor
+//see 1.4.9 in document
+boolean SCD30::softReset()
+{
+    return(sendCommand(SCD30_SOFT_RESET));
 }

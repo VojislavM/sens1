@@ -25,25 +25,38 @@ SCD30 scdSensor;
 void setup()  
 {
     Serial.begin(9600);
+
     Serial.println("SCD30 Example");
+
     scdSensor.begin(); //this will cause readings to occur every two seconds
-    scdSensor.setMeasurementInterval(3); //we want to change the measurement interval that to 10 seconds
+    Serial.print("Default measurement interval: ");
+    Serial.println(scdSensor.getMeasurementInterval());
 
-    scdSensor.setAltitudeCompensation(240); //set altitude in m
+    scdSensor.setMeasurementInterval(10); //then we change it to 10
+    Serial.print("Set measurement interval: ");
+    Serial.println(scdSensor.getMeasurementInterval());
 
-    scdSensor.setAmbientPressure(1020); //set pressure in mBar
+    scdSensor.setForcedRecalibrationValue(1500);
+    Serial.print("FRC value: ");
+    Serial.println(scdSensor.getForcedRecalibrationValue());
 
-    attachInterrupt(digitalPinToInterrupt(PIN_A2), printValuesOnInterrupt, HIGH); //the RDY pin of SCD30 is connected to the Analog 2 pin on the MCU
-                                                                                  //when a new measurement is ready the value of RDY is 1 (high)
+    //then we want to reset the sensor and read the values again
+    scdSensor.stopMeasuring();
+    scdSensor.softReset();
+
+    delay(15000);
+    
+    scdSensor.begin();
+    //we wait a while for the sensor to reset itself and read the values again
+    Serial.print("Set measurement interval: ");
+    Serial.println(scdSensor.getMeasurementInterval());
+    Serial.print("FRC value: ");
+    Serial.println(scdSensor.getForcedRecalibrationValue());
 }
 
 void loop()  
 {
-    //empty loop
-}
-
-void printValuesOnInterrupt() 
-{
+    //it will take some time for the sensor to recalibrate itself
     Serial.print("co2(ppm):");
     Serial.print(scdSensor.getCO2());
 
@@ -53,4 +66,6 @@ void printValuesOnInterrupt()
     Serial.print(" humidity(%):");
     Serial.print(scdSensor.getHumidity(), 1);
     Serial.println();
+
+    delay(2000); //print values every two seconds
 }

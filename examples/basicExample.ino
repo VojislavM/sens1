@@ -32,8 +32,6 @@ void setup()
     scdSensor.setAltitudeCompensation(240); //set altitude in m
 
     scdSensor.setAmbientPressure(1020); //set pressure in mBar
-
-    attachInterrupt(digitalPinToInterrupt(PIN_A2), printInfoOnInterrupt, HIGH);
 }
 
 void loop()  
@@ -48,9 +46,5 @@ void loop()
     Serial.print(scdSensor.getHumidity(), 1);
     Serial.println();
 
-    Serial.print("firmware version: ");
-    Serial.print(scdSensor.getFirmwareVersion()[0], DEC);
-    Serial.print(".");
-    Serial.println(scdSensor.getFirmwareVersion()[1], DEC);
     delay(2000); //print values every two seconds
 }

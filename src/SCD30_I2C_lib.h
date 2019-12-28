@@ -33,14 +33,15 @@ https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/9.
 //defines for available commands
 #define SCD30_START_CONTINUOUS_MEASUREMENT 0x0010
 #define SCD30_STOP_CONTINUOUS_MEASUREMENT 0x0104
-#define SCD30_SET_MEASURING_INTERVAL 0x4600
+#define SCD30_SET_MEASUREMENT_INTERVAL 0x4600
 #define SCD30_GET_READY_STATUS 0x0202
 #define SCD30_READ_MEASUREMENT 0x0300
-#define SCD30_SET_ALTITUDE_COMPENSATION 0x5102
-#define SCD30_SET_TEMPERATURE_OFFSET 0x5403
 #define SCD30_SET_AUTOMATIC_SELFCALIBRATION 0x5306
 #define SCD30_SET_FORCED_RECALIBRATION 0x5204
+#define SCD30_SET_TEMPERATURE_OFFSET 0x5403
+#define SCD30_SET_ALTITUDE_COMPENSATION 0x5102
 #define SCD30_READ_FIRMWARE_VERSION 0xD100
+#define SCD30_SOFT_RESET 0xD304
 
 class SCD30 
 {
@@ -66,6 +67,12 @@ class SCD30
         void setAmbientPressure(uint16_t abmientPressure); //sets ambientPressure, values range from 700 to 1200 mBar
         void setAltitudeCompensation(uint16_t altitude); //sets altitude, values range from 0 upwards, in meters
         
+        uint16_t getMeasurementInterval(); //gets measurement interval
+        boolean getAutomaticSelfCalibration(); //returns 1 if ASC is enabled, 0 otherwise
+        uint16_t getForcedRecalibrationValue(); //gets set FRC value
+        uint16_t getTemperatureOffset(); //gets set temperature offset
+        uint16_t getAltituteCompensation(); //gets set altitute compensation value
+
         boolean readMeasurement(); //reads 18 byte measurement
 
         float getHumidity(); //gets humidity in %RH
@@ -81,7 +88,9 @@ class SCD30
 
         uint8_t computeCRC8(uint8_t data[], uint8_t len); //calculates crc checksum
 
-        uint8_t* getFirmwareVersion();
+        uint8_t* getFirmwareVersion(); //gets the firmware version in format major.minor
+
+        boolean softReset(); //soft resets the sensor
 
     private:
         //measured values
