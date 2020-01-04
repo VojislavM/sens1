@@ -23,20 +23,7 @@ https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/9.
 
 SCD30 scdSensor;
 
-void setup()  
-{
-    Serial.begin(9600);
-    Serial.println("SCD30 Example");
-
-    scdSensor.begin(); //this will cause readings to occur every two seconds
-    scdSensor.setMeasurementInterval(10); //we want to change the measurement interval that to 10 seconds
-
-    scdSensor.setAltitudeCompensation(240); //set altitude in m
-
-    scdSensor.setAmbientPressure(1020); //set pressure in mBar
-}
-
-void loop()  
+void printValues()
 {
     Serial.print("co2(ppm):");
     Serial.print(scdSensor.getCO2());
@@ -47,6 +34,25 @@ void loop()
     Serial.print(" humidity(%):");
     Serial.print(scdSensor.getHumidity(), 1);
     Serial.println();
+}
 
-    delay(2000); //print values every two seconds
+void setup()  
+{
+    Serial.begin(9600);
+    Serial.println("SCD30 Example");
+
+    scdSensor.begin(); //this will cause readings to occur every two seconds
+    scdSensor.setMeasurementInterval(3); //we want to change the measurement interval that to 3 seconds
+
+    scdSensor.setAltitudeCompensation(240); //set altitude in m
+
+    scdSensor.setAmbientPressure(1020); //set pressure in mBar
+
+    //the RDY pin of SCD30 is connected to the A5 analog pin on the MCU (Adafruit Metro M4 in my case)
+    scdSensor.attachExternalInterrupt(PIN_A5, printValues);
+}
+
+void loop()  
+{
+    //empty loop
 }

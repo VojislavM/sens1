@@ -5,13 +5,14 @@ This is a library for the SCD30 CO2 Sensor Module.
 The sensor uses either I2C or UART to comminucate.
 This library is intented for the I2C interface.
 
-The library with the UART interface can be found at: <insert later>
-
+The library with the UART interface can be found at: https://github.com/NejcKle/sens2
 
 The SCD30 measures CO2 with an accuracy of +/- 30ppm.
 
 This library handles the initialization of the SCD30
 and outputs CO2, humidity and temperature levels.
+
+It also implements the option to read data with an interrupt connected to the SCD30's RDY pin.
 
 Sensor interface description can be found at: 
 https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/9.5_CO2/Sensirion_CO2_Sensors_SCD30_Interface_Description.pdf.
@@ -91,6 +92,8 @@ class SCD30
         uint8_t* getFirmwareVersion(); //gets the firmware version in format major.minor
 
         boolean softReset(); //soft resets the sensor
+
+        void attachExternalInterrupt(uint8_t pin, void (*function)(void)); //attaches interrupt to pin
 
     private:
         //measured values
