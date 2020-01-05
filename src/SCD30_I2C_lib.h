@@ -101,7 +101,7 @@ class SCD30
         float temperature = 0;
         float humidity = 0;
         
-        uint8_t* firmwareVersion;
+        uint8_t firmwareVersion[2];
 };
 
 #endif

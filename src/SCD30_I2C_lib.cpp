@@ -395,13 +395,9 @@ uint8_t SCD30::computeCRC8(uint8_t data[], uint8_t len)
 //see 1.4.8 in document
 uint8_t* SCD30::getFirmwareVersion()
 {
-    if (sizeof(firmwareVersion) == 0) {
-        uint8_t version[2] = {0, 0};
-        uint16_t versionData = readRegister(SCD30_READ_FIRMWARE_VERSION);
-        version[0] = versionData >> 8;
-        version[1] = versionData & 0xFF;
-        firmwareVersion = version;
-    }
+    uint16_t versionData = readRegister(SCD30_READ_FIRMWARE_VERSION);
+    firmwareVersion[0] = versionData >> 8;
+    firmwareVersion[1] = versionData & 0xFF;
     return firmwareVersion;
 }
 
