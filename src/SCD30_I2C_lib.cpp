@@ -149,8 +149,8 @@ uint16_t SCD30::getMeasurementInterval()
 //see 1.4.5 in document
 boolean SCD30::getAutomaticSelfCalibration()
 {
-    uint16_t ACS = readRegister(SCD30_SET_AUTOMATIC_SELFCALIBRATION);
-    if (ACS == 1) return true;
+    uint16_t ASC = readRegister(SCD30_SET_AUTOMATIC_SELFCALIBRATION);
+    if (ASC == 1) return true;
     else return false;
 }
 
