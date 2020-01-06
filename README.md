@@ -1,5 +1,5 @@
 # I2C Arduino Library for CO₂ Humidity and Temperature Sensor - SCD30
-[CO₂ Humidity and Temperature Sensor - SCD30](https://www.sparkfun.com/products/15112)
+[CO₂ Humidity and Temperature Sensor - SCD30](https://www.sensirion.com/en/environmental-sensors/carbon-dioxide-sensors-co2/)
 
 The SCD30 from Sensirion is a high quality Nondispersive Infrared (NDIR) based CO₂ sensor capable of detecting 400 to 10000ppm with an accuracy of ±(30ppm+3%). In order to improve accuracy the SCD30 has temperature and humidity sensing built-in, as well as commands to set the current altitude. For additional accuracy the SCD30 also accepts ambient pressure readings.
 
