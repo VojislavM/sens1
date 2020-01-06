@@ -72,7 +72,7 @@ class SCD30
         boolean getAutomaticSelfCalibration(); //returns 1 if ASC is enabled, 0 otherwise
         uint16_t getForcedRecalibrationValue(); //gets set FRC value
         uint16_t getTemperatureOffset(); //gets set temperature offset
-        uint16_t getAltituteCompensation(); //gets set altitute compensation value
+        uint16_t getAltitudeCompensation(); //gets set altitute compensation value
 
         boolean readMeasurement(); //reads 18 byte measurement
 

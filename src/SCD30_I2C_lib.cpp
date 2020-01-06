@@ -173,7 +173,7 @@ uint16_t SCD30::getTemperatureOffset()
 
 //gets set altitude compensation
 //see 1.4.7 in document
-uint16_t SCD30::getAltituteCompensation()
+uint16_t SCD30::getAltitudeCompensation()
 {
     uint16_t interval = readRegister(SCD30_SET_ALTITUDE_COMPENSATION);
     return interval;
